@@ -3,7 +3,7 @@ export function useGetUniqueId() {
         return Math.random().toString(16).slice(-4);
     }
 
-    function generate() {
+    function generate(): string {
         return `uid-${chr4()}${chr4()}-${chr4()}-${chr4()}-${chr4()}-${chr4()}${chr4()}${chr4()}`;
     }
 

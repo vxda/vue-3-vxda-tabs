@@ -1,4 +1,4 @@
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 
 import Tabs from './Tabs.vue';
 import TabsItem from './TabsItem.vue';
@@ -11,6 +11,6 @@ export default {
 } as Plugin;
 
 export {
-    Tabs as DSTabs,
-    TabsItem as DSTabsItem
+    Tabs as VxdaTabs,
+    TabsItem as VxdaTabsItem
 };

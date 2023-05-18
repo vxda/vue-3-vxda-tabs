@@ -4,13 +4,14 @@
 
 <script setup lang="ts">
     type Props = {
-        name: string;
-        actionSlotBefore?: HTMLElement | null;
-        actionSlotAfter?: HTMLElement | null;
+        title: string,
+        actionSlotBefore?: HTMLElement | null,
+        actionSlotAfter?: HTMLElement | null,
+        id?: string;
     };
 
     defineOptions({
-        name: 'TabsItem'
+        name: 'VxdaTabsItem'
     });
 
     const props = defineProps<Props>();

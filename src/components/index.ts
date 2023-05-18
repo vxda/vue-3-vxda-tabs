@@ -1,5 +1,6 @@
-import Tabs from './Tabs';
+import { VxdaTabs, VxdaTabsItem } from './Tabs';
 
 export {
-    Tabs
+    VxdaTabs,
+    VxdaTabsItem
 };

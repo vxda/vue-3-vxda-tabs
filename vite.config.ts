@@ -1,7 +1,7 @@
 import * as path from 'path';
 import typescript2 from 'rollup-plugin-typescript2';
 import dts from 'vite-plugin-dts';
-import checker from 'vite-plugin-checker';
+// import checker from 'vite-plugin-checker';
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -9,7 +9,12 @@ import vue from '@vitejs/plugin-vue';
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
-        vue(),
+        vue({
+            // script: {
+            //     propsDestructure: true,
+            //     defineModel: true
+            // }
+        }),
         dts({
             insertTypesEntry: true,
         }),
@@ -26,18 +31,18 @@ export default defineConfig({
             },
             exclude: ['vite.config.ts']
         }),
-        checker({
-            typescript: true,
-        }),
+        // checker({
+        //     typescript: true,
+        // }),
     ],
     build: {
         cssCodeSplit: true,
         lib: {
             // Could also be a dictionary or array of multiple entry points
             entry: 'src/lib.ts',
-            name: 'vue-tabs',
+            name: 'vxdaTabs',
             formats: ['es', 'cjs', 'umd'],
-            fileName: format => `vue-tabs-ts.${format}.js`
+            fileName: format => `vxda-tabs-ts.${format}.js`
         },
         rollupOptions: {
             // make sure to externalize deps that should not be bundled
@@ -48,7 +53,8 @@ export default defineConfig({
             external: ['vue'],
             output: {
                 assetFileNames: (assetInfo) => {
-                    if (assetInfo.name === 'main.css') return 'vue-tabs-ts.css';
+                    if (assetInfo.name === 'lib.css') return 'vxda-tabs-ts.css';
+                    console.log('assetInfo.name', assetInfo.name);
                     return assetInfo.name;
                 },
                 exports: 'named',

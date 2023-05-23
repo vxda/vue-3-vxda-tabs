@@ -1,5 +1,7 @@
 <template>
-    <slot :action-slot-before="actionSlotBefore" :action-slot-after="actionSlotAfter"/>
+    <div class="vxda-tabs__item">
+        <slot :action-slot-before="actionSlotBefore" :action-slot-after="actionSlotAfter"/>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -14,7 +16,7 @@
         name: 'VxdaTabsItem'
     });
 
-    const props = defineProps<Props>();
+    defineProps<Props>();
 
 
 </script>

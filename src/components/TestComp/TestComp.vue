@@ -13,7 +13,7 @@
             <button type="button" @click="isShowing = !isShowing">toggle</button>
         </teleport>
         <div v-else>
-            <button type="button" @click="isShowing = !isShowing">toggle</button>
+            <button type="button" @click="isShowing = !isShowing">toggle in my component</button>
         </div>
     </div>
 </template>

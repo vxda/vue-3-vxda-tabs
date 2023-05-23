@@ -4,12 +4,15 @@
     <!--        <VxdaTabsItem title="drugi item" id="test">qrwa mac 2</VxdaTabsItem>-->
     <!--    </VxdaTabs>-->
 
+<!--    <div style="height: 2000px"></div>-->
+
     <VxdaTabs animation="fadeDown" class="my-tabs" is-post-slot-active :breakpoints="breakpoints">
         <VxdaTabsItem title="slot 1sadfasdfadsfasdfasdfasdfasf" v-slot="{ actionSlotAfter }" class="qrwamac asdas">
             <TestComp :action-slot-after="actionSlotAfter" class="qrwa"/>
         </VxdaTabsItem>
 
-        <VxdaTabsItem title=" tab number 2 asdfasf asdf asd fasd " costam="asd">
+        <VxdaTabsItem title=" tab number 2 asdfasf asdf asd fasd " costam="asd" id="super">
+            <div>qrwa ,ac</div>
             <div>qrwa ,ac</div>
         </VxdaTabsItem>
 
@@ -52,6 +55,7 @@
         <VxdaTabsItem title="slot 4 asdfadsfasdfasdfasdfasfasdfasdfas"> content4</VxdaTabsItem>
     </VxdaTabs>
 
+    <div style="height: 2000px"></div>
 </template>
 
 <script setup lang="ts">
@@ -64,8 +68,9 @@
     const activeTabId2 = ref('test');
 
     const breakpoints: BreakpointsType = {
-        0: 'vertical',
-        560: 'horizontal',
+        0: 'accordion',
+        560: 'vertical',
+        900: 'horizontal'
     };
 </script>
 

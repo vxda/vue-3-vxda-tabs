@@ -9,6 +9,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:yourname/yourlibrary.git master:gh-pages
+git push -f git@github.com:vxda/vue-3-vxda-tabs.git master:gh-pages
 
 cd -

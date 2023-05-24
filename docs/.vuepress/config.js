@@ -3,26 +3,26 @@ import { defineUserConfig, defaultTheme } from 'vuepress'
 
 export default defineUserConfig({
     lang: 'en-US',
-    title: 'Hello VuePress',
-    description: 'Just playing around',
+    title: 'Vue 3 - vxdaTabs',
+    description: 'Simple Tabs component',
+    base: '/vue-3-vxda-tabs/',
     theme: defaultTheme({
         // default theme config
-        navbar: [
+        // navbar: [
+        //     {
+        //         text: 'Home',
+        //         link: '/',
+        //     },
+        // ],
+        sidebar: [
             {
-                text: 'Home',
-                link: '/',
+                text: 'Introduction',
+                link: '/'
             },
-        ],
+            {
+                text: 'Components',
+                link: '/components'
+            }
+        ]
     }),
-    // themeConfig: {
-    //     sidebar: [
-    //         {
-    //             title: 'Components',
-    //             collapsable: false,
-    //             children: [
-    //                 '/components/vxdaTabs.md',
-    //             ]
-    //         }
-    //     ]
-    // }
 })

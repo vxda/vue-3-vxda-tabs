@@ -27,11 +27,12 @@
                     <li class="vxda-tabs__button-wrapper" v-for="(button, index) in mySlotItems" :key="button.id">
                         <button
                             :id="button.id"
-                            :class="[{'vxda-tabs__button--active' : button.id === activeTabIdComputed}, `vxda-tabs__button--${currentOrientation}`]"
+                            :disabled="button.props?.disabled"
+                            :class="[{'vxda-tabs__button--active' : button.id === activeTabIdComputed}, `vxda-tabs__button--${currentOrientation}`, {'vxda-tabs__button--disabled': button.props?.disabled}]"
                             class="vxda-tabs__button"
                             type="button"
                             @click="setActiveTab(button.id)">
-                            {{ button?.props?.title || index }}
+                            {{ button?.props?.title || index }} -- {{ button.props?.disabled }}
                             <span v-if="button.id === activeTabIdComputed"
                                   :class="`vxda-tabs__active-button-mask--${currentOrientation}`"
                                   class="vxda-tabs__active-button-mask"></span>
@@ -85,15 +86,15 @@
 </template>
 
 <script setup lang="ts">
-    import { useSlots, computed, ref, onMounted, onBeforeUnmount } from 'vue';
+    import { useSlots, computed, ref, onMounted } from 'vue';
     import { useGetUniqueId } from '../../composables/useGetUniqueId';
     import TabsContentContainer from './TabsContentContainer.vue';
     import './index.scss';
 
     //todo add accordion
-    export type OrientationTypes = 'vertical' | 'horizontal' | 'accordion';
+    export type OrientationTypes = 'vertical' | 'horizontal' | 'accordion' | undefined;
     export type BreakpointsType = {
-        [key: number]: OrientationTypes
+        [key: string]: OrientationTypes
     }
     export type AnimationTypes = 'fade' | 'fadeLeft' | 'fadeRight' | 'fadeDown' | 'fadeUp' | 'none';
 
@@ -121,6 +122,7 @@
     // const contentHeight = ref<number | string>('0');
 
     const slots = useSlots();
+
     const { getId } = useGetUniqueId();
     const teleportSlotBefore = ref<HTMLElement | null>(null);
     const teleportSlotAfter = ref<HTMLElement | null>(null);
@@ -138,9 +140,12 @@
             id: item?.props?.id || getId()
         }));
 
+
         // @ts-ignore:next-line
         return mySlots?.filter(({ type }) => type.hasOwnProperty('name') && type?.name === 'VxdaTabsItem') || [];
     });
+
+    console.log('mySlotItems', mySlotItems.value);
 
     const activeTabHashId = ref(window.location.hash?.replace('#', ''));
     const activeTabIdComputed = computed(() => activeTabHashId.value || props.activeTabId || activeTabIdFallback.value);
@@ -157,10 +162,9 @@
         return 'vxda-tabs--is-no-slots';
     });
 
-    // const contentPadding = computed(() => contentHeight.value ? 'var(--vxda-tabs-content-padding)' : 0);
-    const breakpointsSorted = computed(() => {
+    const breakpointsSorted = computed((): { mq: MediaQueryList, orientation: OrientationTypes }[] => {
         if (props.breakpoints) {
-            const sortedKeys = Object.keys(props.breakpoints).sort((a, b) => a - b);
+            const sortedKeys = Object.keys(props.breakpoints).sort((a, b) => parseInt(a) - parseInt(b)).map((key) => parseInt(key));
 
             return sortedKeys.map((key, index) => {
                 const nextBreakpoint = sortedKeys[index + 1];
@@ -169,7 +173,7 @@
 
                 return {
                     mq: window.matchMedia(`${min}${max}`),
-                    orientation: props.breakpoints[key]
+                    orientation: props.breakpoints?.[key]
                 };
             });
         }
@@ -190,7 +194,7 @@
 
     }
 
-    function attachMediaQueryEvents({ mq, orientation }) {
+    function attachMediaQueryEvents({ mq, orientation }: { mq: MediaQueryList, orientation: OrientationTypes }) {
         if (mq?.addEventListener) {
             mq.addEventListener('change', (media) => {
                 if (media.matches) {
@@ -201,9 +205,12 @@
     }
 
     function handleBreakpoints() {
-        const { orientation } = breakpointsSorted.value?.find(({ mq: { matches } }) => matches);
+        const mq = breakpointsSorted.value?.find(({ mq: { matches } }) => matches);
 
-        currentOrientation.value = orientation;
+        if (mq && mq.orientation) {
+            currentOrientation.value = mq.orientation;
+        }
+
         breakpointsSorted.value.forEach(attachMediaQueryEvents);
 
 
@@ -252,19 +259,19 @@
 
     .vxda-tabs__wrapper--vertical {
         grid-template-columns: min-content auto;
-        border-top: 1px solid var(--vxda-tabs-border-color);
+        border-top: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
     }
 
     .vxda-tabs__nav {
         display: grid;
         grid-auto-flow: column;
-        border-bottom: 1px solid var(--vxda-tabs-border-color);
+        border-bottom: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
         position: relative;
         margin: 0;
         padding: 0;
 
         &.vxda-tabs__nav--vertical {
-            border-left: 1px solid var(--vxda-tabs-border-color);
+            border-left: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
         }
     }
 
@@ -328,7 +335,7 @@
     .vxda-tabs__buttons--vertical {
         display: grid;
         grid-auto-rows: min-content;
-        border-right: 1px solid var(--vxda-tabs-border-color);
+        border-right: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
     }
 
     .vxda-tabs__button {
@@ -336,25 +343,30 @@
         cursor: pointer;
         padding: 5px 10px;
         background-color: inherit;
-        margin-bottom: -1px;
+        //margin-bottom: -1px;
         color: var(--vxda-tabs-nav-color);
         display: block;
     }
 
+    .vxda-tabs__button--disabled {
+        opacity: .5;
+
+    }
+
     .vxda-tabs__button--horizontal {
-        border: 1px solid var(--vxda-tabs-border-color);
-        border-bottom-color: transparent;
+        border: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
+        border-bottom: 0;
         border-left: 0;
     }
 
     .vxda-tabs__button-wrapper:first-child {
         .vxda-tabs__button--horizontal {
-            border-left: 1px solid var(--vxda-tabs-border-color);
+            border-left: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
         }
     }
 
     .vxda-tabs__button--vertical {
-        border-top: 1px solid var(--vxda-tabs-border-color);
+        border-top: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
         width: 100%;
     }
 
@@ -373,8 +385,8 @@
     }
 
     .vxda-tabs__button--accordion {
-        border-top: 1px solid var(--vxda-tabs-border-color);
-        border-bottom: 1px solid var(--vxda-tabs-border-color);
+        border-top: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
+        border-bottom: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
         width: 100%;
 
         &.vxda-tabs__button--active {
@@ -391,24 +403,21 @@
         display: block;
         position: absolute;
         backdrop-filter: contrast(100);
-        backface-visibility: hidden;
     }
 
 
     .vxda-tabs__active-button-mask--horizontal {
         width: 100%;
-        height: 10px;
-        bottom: -2px;
+        height: calc(var(--vxda-tabs-border-width) * 2);
+        bottom: calc((var(--vxda-tabs-border-width)) * -1);
         left: 0;
     }
 
     .vxda-tabs__active-button-mask--vertical {
-        height: calc(100% - 1px);
-        width: 1px;
-        right: -1px;
+        height: calc(100%);
+        width: calc(var(--vxda-tabs-border-width) * 2);
+        right: calc((var(--vxda-tabs-border-width)) * -1);
         top: 0;
-        z-index: 10;
-        backdrop-filter: contrast(100);
     }
 
     .vxda-tabs__teleport-slots-vertical {

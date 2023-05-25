@@ -22,6 +22,10 @@ export default defineUserConfig({
             {
                 text: 'Components',
                 link: '/components'
+            },
+            {
+                text: 'Styling',
+                link: '/styling'
             }
         ]
     }),

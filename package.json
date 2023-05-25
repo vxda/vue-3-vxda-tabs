@@ -1,8 +1,20 @@
 {
   "name": "vxda-tabs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "type": "module",
+  "homepage": "https://vxda.github.io/vue-3-vxda-tabs/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vxda/vue-3-vxda-tabs"
+  },
+  "keywords": [
+    "vue3",
+    "ts",
+    "typescript",
+    "tabs"
+  ],
+  "license": "MIT",
   "files": [
     "dist"
   ],
@@ -32,7 +44,7 @@
     "docs:build": "vuepress build docs"
   },
   "peerDependencies": {
-    "vue": "^3.3.2"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@babel/types": "^7.21.5",

@@ -30,12 +30,14 @@
 
     onMounted(() => {
         if (tabsContentInner.value) {
+            // @ts-ignore:next-line
             resizeObserver.observe(tabsContentInner.value);
         }
     });
 
     onBeforeUnmount(() => {
         if (tabsContentInner.value) {
+            // @ts-ignore:next-line
             resizeObserver.unobserve(tabsContentInner.value);
         }
     });
@@ -54,13 +56,13 @@
     }
 
     .vxda-tabs__content--horizontal {
-        border: 1px solid var(--vxda-tabs-border-color);
+        border: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
         border-top: 0;
     }
 
     .vxda-tabs__content--vertical {
-        border-right: 1px solid var(--vxda-tabs-border-color);
-        border-bottom: 1px solid var(--vxda-tabs-border-color);
+        border-right: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
+        border-bottom: var(--vxda-tabs-border-width) solid var(--vxda-tabs-border-color);
         border-left: 0;
     }
 </style>

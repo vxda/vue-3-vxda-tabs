@@ -5,20 +5,21 @@
 </template>
 
 <script setup lang="ts">
+
+
     type Props = {
         title: string,
         actionSlotBefore?: HTMLElement | null,
         actionSlotAfter?: HTMLElement | null,
+        disabled?: boolean;
         id?: string;
     };
 
     defineOptions({
-        name: 'VxdaTabsItem'
+        name: 'VxdaTabsItem',
     });
 
     defineProps<Props>();
-
-
 </script>
 
 <style lang="scss" scoped>

@@ -4,21 +4,21 @@
     <!--        <VxdaTabsItem title="drugi item" id="test">qrwa mac 2</VxdaTabsItem>-->
     <!--    </VxdaTabs>-->
 
-<!--    <div style="height: 2000px"></div>-->
+    <!--    <div style="height: 2000px"></div>-->
 
     <VxdaTabs animation="fadeDown" class="my-tabs" is-post-slot-active :breakpoints="breakpoints">
         <VxdaTabsItem title="slot 1sadfasdfadsfasdfasdfasdfasf" v-slot="{ actionSlotAfter }" class="qrwamac asdas">
             <TestComp :action-slot-after="actionSlotAfter" class="qrwa"/>
         </VxdaTabsItem>
 
-        <VxdaTabsItem title=" tab number 2 asdfasf asdf asd fasd " costam="asd" id="super">
+        <VxdaTabsItem title=" tab number 2 asdfasf asdf asd fasd " costam="asd" id="super" :disabled="true">
             <div>qrwa ,ac</div>
             <div>qrwa ,ac</div>
         </VxdaTabsItem>
 
         <div>qrwa</div>
 
-        <VxdaTabsItem title="slot 3dsaf asdf asd f" class="qrwa">
+        <VxdaTabsItem title="Disabled qrwa" class="qrwa">
             <div>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
                 aliquam aliquid architecto assumenda autem consectetur dolorem dolorum, id

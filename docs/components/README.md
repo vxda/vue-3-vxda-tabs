@@ -60,7 +60,8 @@
 
 ### VxdaTabsItem Props
 
-| name  | type   | default   | notes                                                   |
-|-------|--------|-----------|---------------------------------------------------------|
-| id    | string | automatic | works with v-model that is set on VxdaTabs component    |
-| title | string |           | this is required and is used to set text in tab buttons |
+| name     | type    | default   | notes                                                   |
+|----------|---------|-----------|---------------------------------------------------------|
+| id       | string  | automatic | works with v-model that is set on VxdaTabs component    |
+| title    | string  |           | this is required and is used to set text in tab buttons |
+| disabled | boolean |           |                                                         |

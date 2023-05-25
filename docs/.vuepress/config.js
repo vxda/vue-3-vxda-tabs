@@ -1,5 +1,4 @@
-import { defineUserConfig, defaultTheme } from 'vuepress'
-
+import {defineUserConfig, defaultTheme} from 'vuepress'
 
 export default defineUserConfig({
     lang: 'en-US',
@@ -7,13 +6,6 @@ export default defineUserConfig({
     description: 'Simple Tabs component',
     base: '/vue-3-vxda-tabs/',
     theme: defaultTheme({
-        // default theme config
-        // navbar: [
-        //     {
-        //         text: 'Home',
-        //         link: '/',
-        //     },
-        // ],
         sidebar: [
             {
                 text: 'Introduction',

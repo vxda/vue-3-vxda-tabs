@@ -1,6 +1,6 @@
 {
   "name": "vxda-tabs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": false,
   "type": "module",
   "homepage": "https://vxda.github.io/vue-3-vxda-tabs/",
@@ -41,7 +41,9 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "docs:deploy": "sh deploy.sh",
+    "npm:publish": "npm publish"
   },
   "peerDependencies": {
     "vue": "^3.3.4"

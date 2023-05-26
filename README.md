@@ -29,16 +29,16 @@ yarn add vxda-tabs
 
 ```vue:v-pre
 <script setup lang="ts">
-import { vxdaTabs, vxdaTabsItem } from 'vxda-tabs';
+import { VxdaTabs, VxdaTabsItem } from 'vxda-tabs';
 // add some basic styling
 import 'vxda-tabs/dist/vxda-tabs-ts.css';
 </script>
 
 <template>
     <VxdaTabs>
-        <VxdaTabItem title='my tab name'>
+        <VxdaTabsItem title='my tab name'>
           ... some content goes here
-        </VxdaTabItem>
+        </VxdaTabsItem>
     </VxdaTabs>
 </template>
 ```
